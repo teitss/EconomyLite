@@ -3,9 +3,8 @@
  */
 package io.github.flibio.economylite.commands;
 
-import io.github.flibio.economylite.TextUtils;
-
 import io.github.flibio.economylite.EconomyLite;
+import io.github.flibio.economylite.TextUtils;
 import io.github.flibio.utils.commands.AsyncCommand;
 import io.github.flibio.utils.commands.BaseCommandExecutor;
 import io.github.flibio.utils.commands.Command;
@@ -76,7 +75,8 @@ public class PayCommand extends BaseCommandExecutor<Player> {
             Optional<UniqueAccount> tOpt = ecoService.getOrCreateAccount(target.getUniqueId());
             if (uOpt.isPresent() && tOpt.isPresent()) {
                 if (uOpt.get()
-                        .transfer(tOpt.get(), ecoService.getDefaultCurrency(), amount, Cause.of(EventContext.empty(), (EconomyLite.getInstance())))
+                        .transfer(tOpt.get(), ecoService.getDefaultCurrency(), amount, Cause.of(EventContext.empty(),
+                                EconomyLite.getInstance(), uOpt.get(), tOpt.get(), "payCommand"))
                         .getResult().equals(ResultType.SUCCESS)) {
                     Text label = ecoService.getDefaultCurrency().getPluralDisplayName();
                     if (amount.equals(BigDecimal.ONE)) {

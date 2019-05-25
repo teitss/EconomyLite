@@ -28,7 +28,8 @@ public class LiteEconomyTransactionEvent extends AbstractEvent implements Econom
 
     public LiteEconomyTransactionEvent(TransactionResult result, UUID user, Cause cause) {
         this.result = result;
-        this.cause = Cause.of(EventContext.empty(), user);
+        //Added Cause parameter as root event cause to ensure expected behavior and added UUID as well.
+        this.cause = cause.with(user);
     }
 
     @Override
